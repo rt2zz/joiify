@@ -1,0 +1,17 @@
+{
+  "name": "joiify",
+  "version": "1.0.0",
+  "description": "Convert a idiomatic js/json object into a Joi schema",
+  "main": "index.js",
+  "dependencies": {
+    "joi": "^5.1.0"
+  },
+  "devDependencies": {
+    "tape": "^3.5.0"
+  },
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "author": "rt2zz <zack@root-two.com>",
+  "license": "MIT"
+}
