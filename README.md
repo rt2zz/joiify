@@ -1,5 +1,11 @@
 # joiify
-Convert an idiomatic js/json object into a Joi schema
+Convert an idiomatic js/json object into a Joi schema.
+
+This makes it easier to read and write Joi schemas, especially if written inline, e.g. {a: 'string', b: ['number']}
+
+Note: Joiify does not cache the schema result, for optimal performance you should Joiify your scheme before validation time.
+
+Note2: Joiify will treat Joi objects as pass through so you can safely mix and match Joiify schemes with Joi schemas and do not have to worry about loss of functionality.  E.G. Joiify(Joi.string()) compiles to Joi.string()
 
 ##Usage
 ```js
@@ -72,6 +78,7 @@ Convert the a joiify "scheme" into a Joi "schema" where `scheme`: one of the fol
 * `[]`: Joi.array() - will add children as valid elements, see `Joi.array().includes()`
 
 ####Objects
+* *Joi Schema*: will return the Joi schema verbatim.
 * `{}`: Joi.object() - will recursively convert children as well  
 Objects types have a special `'*'` property that sets special handlers for the object validation:  
   * `'*'`: Object with the following possible keys
