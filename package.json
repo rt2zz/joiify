@@ -1,7 +1,7 @@
 {
   "name": "joiify",
   "version": "1.0.0",
-  "description": "Convert a idiomatic js/json object into a Joi schema",
+  "description": "Convert an idiomatic js/json object into a Joi schema",
   "main": "index.js",
   "dependencies": {
     "joi": "^5.1.0"
