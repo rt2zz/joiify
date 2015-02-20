@@ -1,13 +1,14 @@
 # joiify
 Convert an idiomatic js/json object into a Joi schema.
 
-This makes it easier to read and write Joi schemas, especially if written inline, e.g. {a: 'string', b: ['number']}
+This makes it easier to read and write Joi schemas, especially if written inline, e.g.
+`{a: 'string', b: ['number']}`
 
-Note: Joiify does not cache the schema result, for optimal performance you should Joiify your scheme before validation time.
+**Note:** Joiify does not cache the schema result, for optimal performance you should Joiify your scheme before validation time as you would with any Joi schema.
 
-Note2: Joiify will treat Joi objects as pass through so you can safely mix and match Joiify schemes with Joi schemas and do not have to worry about loss of functionality.  E.G. Joiify(Joi.string()) compiles to Joi.string()
+**Note2:** Joiify will treat Joi objects as pass through so you can safely mix and match Joiify schemes with Joi schemas and do not have to worry about loss of functionality.  E.G. Joiify(Joi.string()) compiles to Joi.string()
 
-##Usage
+## Usage
 ```js
 var Joiify = require('joiify')
 var AccountSchema = Joiify({
@@ -40,7 +41,7 @@ Joi.object().keys({
 })
 ```
 
-##API
+## API
 Joiify accepts one argument the "scheme" which should be one of the following:
 ### Joiify(scheme)
 Convert the a joiify "scheme" into a Joi "schema" where `scheme`: one of the following
@@ -48,42 +49,41 @@ Convert the a joiify "scheme" into a Joi "schema" where `scheme`: one of the fol
 * `Object`: An object. Object keys will be recursively converted to Joi objects.
 * `Array`: An array. Array children will be used to validate array elements.
 
-###Type Conversion  
+### Type Conversion  
 
-####strings types
-* *string*: Joi.string()
-* *email*: Joi.string().email()
-* *hostname*: Joi.string().hostname()
-* *alphanum*: Joi.string().alphanum()
-* *hex*: Joi.string().hex()
-* *token*: Joi.string().token()  
+#### strings types
+* `"string"`: Joi.string()
+* `"email"`: Joi.string().email()
+* `"hostname"`: Joi.string().hostname()
+* `"alphanum"`: Joi.string().alphanum()
+* `"hex"`: Joi.string().hex()
+* `"token"`: Joi.string().token()  
 
 #### number types
-* *number*: Joi.number()
-* *integer*: Joi.number().integer()  
+* `"number"`: Joi.number()
+* `"integer"`: Joi.number().integer()  
 
-####other types
-* *date*: Joi.date()
-* *boolean*: Joi.boolean()
-* *binary*: Joi.binary()
-* *func*: Joi.func()
-* *array*: Joi.array()
-* *object*: Joi.object()
-* *forbidden*: Joi.any().forbidden()  
+#### other types
+* `"date"`: Joi.date()
+* `"boolean"`: Joi.boolean()
+* `"binary"`: Joi.binary()
+* `"func"`: Joi.func()
+* `"array"`: Joi.array()
+* `"object"`: Joi.object()
+* `"forbidden"`: Joi.any().forbidden()  
 
-####special (non strings)  
-* Joi schema: uses the Joi schema verbatim
+#### special (non strings)  
 * `undefined`: Joi.any().foribdden()
 * `null`: Joi.any().valid(null)
-* `[]`: Joi.array() - will add children as valid elements, see `Joi.array().includes()`
+* `[]`: Joi.array()
+  * Array elements are added as valid types see `Joi.array().includes()`
 
 ####Objects
-* *Joi Schema*: will return the Joi schema verbatim.
-* `{}`: Joi.object() - will recursively convert children as well  
-Objects types have a special `'*'` property that sets special handlers for the object validation:  
-  * `'*'`: Object with the following possible keys
-    * required: boolean, marks as required (or optional) all keys on the object
-    * unknown: boolean, allows (or disallows) unknown keys on the object 
-    * max: integer, sets the maximum number of keys on the object
-    * min: integer, sets the minimum number of keys on the object
-  
+* *Joi Schema Object*: will return the Joi schema verbatim.
+* `{}`: Joi.object()
+  * Children will be recursively converted using the same rules above
+  * `'*'` if set specifies special handlers for the object validation as follows  
+    * `required: boolean`, marks as required (true) or optional (false) all keys on the object
+    * `unknown: boolean`, allows (true) or disallows (false) unknown keys on the object
+    * `max: integer`, sets the maximum number of keys on the object
+    * `min: integer`, sets the minimum number of keys on the object
