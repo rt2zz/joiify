@@ -1,12 +1,31 @@
 # joiify
-Convert an idiomatic js/json object into a Joi schema.
 
-This makes it easier to read and write Joi schemas, especially if written inline, e.g.
-`{a: 'string', b: ['number']}`
+Fast to write easy to read validation schemas, e.g.
+```
+{
+  a: 'string',
+  b: [],
+  c: {
+    d: 'integer',
+    e: 'date'
+  }
+}
+```
 
-**Note:** Joiify does not cache the schema result, for optimal performance you should Joiify your scheme before validation time as you would with any Joi schema.
+Joiify will convert the object above to a [Joi](https://github.com/hapijs/joi) schema.  Why?
+* Semantically intuitive
+* Fast to write and easy to read
+* Portable - Joiify simply takes in a vanilla js/json object
+* Compact, especially if written inline e.g. `{a: 'string', b: []}`
+* Fully Capable (see note below)
 
-**Note2:** Joiify will treat Joi objects as pass through so you can safely mix and match Joiify schemes with Joi schemas and do not have to worry about loss of functionality.  E.G. Joiify(Joi.string()) compiles to Joi.string()
+**Note:** Joiify will treat Joi objects as pass through so you can safely mix and match Joiify schemes with Joi schemas and do not have to worry about loss of functionality.  E.G. Joiify(Joi.string()) compiles to Joi.string()
+
+**Note2:** Portability is a big deal. You can trivially send a Joiify schema over http and have the consumer construct the validation schema from the parsed json response. However this will only work if you do not have any Joi objects in your scheme.
+
+**Note3:** Joiify does not cache the schema result, for optimal performance you should Joiify your scheme before validation time as you would with any Joi schema.
+
+
 
 ## Usage
 ```js
@@ -46,7 +65,7 @@ Joiify accepts one argument the "scheme" which should be one of the following:
 ### Joiify(scheme)
 Convert the a joiify "scheme" into a Joi "schema" where `scheme`: one of the following
 * `type`: See type values below
-* `Object`: An object. Object keys will be recursively converted to Joi objects.
+* `Object`: An object. Object children will be recursively Joiified.
 * `Array`: An array. Array children will be used to validate array elements.
 
 ### Type Conversion  
