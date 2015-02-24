@@ -17,11 +17,11 @@ Joiify will convert the object above to a [Joi](https://github.com/hapijs/joi) s
 * Fast to write and easy to read
 * Portable - Joiify simply takes in a vanilla js/json object
 * Compact, especially if written inline e.g. `{a: 'string', b: []}`
-* Fully Capable (see note below)
+* Full power of Joi (see note below)
 
 **Note:** Joiify will treat Joi objects as pass through so you can safely mix and match Joiify schemes with Joi schemas and do not have to worry about loss of functionality.  E.G. Joiify(Joi.string()) compiles to Joi.string()
 
-**Note2:** Portability is a big deal. You can trivially send a Joiify schema over http and have the consumer construct the validation schema from the parsed json response. However this will only work if you do not have any Joi objects in your scheme.
+**Note2:** Portability is a big deal. You can trivially send a Joiify schema over http as JSON. However this will only work if you do not have any Joi objects in your scheme (re: note above).
 
 **Note3:** Joiify does not cache the schema result, for optimal performance you should Joiify your scheme before validation time as you would with any Joi schema.
 
@@ -92,12 +92,12 @@ Convert the a joiify "scheme" into a Joi "schema" where `scheme`: one of the fol
 * `"forbidden"`: Joi.any().forbidden()  
 
 #### special (non strings)  
-* `undefined`: Joi.any().foribdden()
+* `undefined`: Joi.any().forbidden()
 * `null`: Joi.any().valid(null)
 * `[]`: Joi.array()
   * Array elements are added as valid types see `Joi.array().includes()`
 
-####Objects
+#### Objects
 * *Joi Schema Object*: will return the Joi schema verbatim.
 * `{}`: Joi.object()
   * Children will be recursively converted using the same rules above
