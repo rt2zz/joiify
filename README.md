@@ -63,10 +63,11 @@ Joi.object().keys({
 ## API
 Joiify accepts one argument the "scheme" which should be one of the following:
 ### Joiify(scheme)
-Convert the a joiify "scheme" into a Joi "schema" where `scheme`: one of the following
-* `type`: See type values below
+Convert the a joiify "scheme" into a Joi "schema" where the `scheme` argument is one of the following
+* `string`: A value which is converted to a corresponding Joi type
 * `Object`: An object. Object children will be recursively Joiified.
 * `Array`: An array. Array children will be used to validate array elements.
+See details below for conversion rules
 
 ### Type Conversion  
 
@@ -97,7 +98,7 @@ Convert the a joiify "scheme" into a Joi "schema" where `scheme`: one of the fol
 * `[]`: Joi.array()
   * Array elements are added as valid types see `Joi.array().includes()`
 
-#### Objects
+#### objects
 * *Joi Schema Object*: will return the Joi schema verbatim.
 * `{}`: Joi.object()
   * Children will be recursively converted using the same rules above
