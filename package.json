@@ -1,6 +1,6 @@
 {
   "name": "joiify",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Easy to read and fast to write Joi schemas",
   "repository": "git://github.com/rt2zz/joiify",
   "main": "index",
